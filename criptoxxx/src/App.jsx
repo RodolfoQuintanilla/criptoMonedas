@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import ImagenCR from "./assets/img/imagen-criptos.png";
 import Formulario from "./components/Formulario";
 import { useEffect, useState } from "react";
+import Resultado from "./components/Resultado";
 
 const Heading = styled.h1`
   font-family: "Lato", sans-serif;
@@ -53,10 +54,10 @@ function App() {
         const respuesta = await fetch(url);
         const resultado = await respuesta.json();
 
-       setResultado(resultado.DISPLAY[criptomonedas][moneda]);
+        setResultado(resultado.DISPLAY[criptomonedas][moneda]);
       };
 
-      cotizarCripto()
+      cotizarCripto();
     }
   }, [monedas]);
 
@@ -66,6 +67,8 @@ function App() {
       <div>
         <Heading>Cotiza Criptomonedas al Instante</Heading>
         <Formulario setMonedas={setMonedas} />
+
+        {resultado.PRICE && <Resultado resultado={resultado} />}
       </div>
     </Contenedor>
   );
